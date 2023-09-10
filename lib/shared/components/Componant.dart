@@ -1,5 +1,5 @@
 // @dart=2.9
-
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:food_order_app/styles/colors.dart';
 import 'package:food_order_app/styles/icons/icon_broken.dart';

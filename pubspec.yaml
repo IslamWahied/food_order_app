@@ -39,6 +39,7 @@ dependencies:
   firebase_auth: ^4.9.0
   firebase_storage: ^11.2.6
   firebase_messaging: ^14.6.7
+  firebase_core: ^2.15.1
 
   smooth_page_indicator:
   carousel_pro:

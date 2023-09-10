@@ -2,8 +2,6 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
-import 'package:food_order_app/allCasesModel.dart';
 import 'package:food_order_app/models/project/projectModel.dart';
 import 'package:food_order_app/models/user/user_model.dart';
 import 'package:food_order_app/modules/login/activationCodeScreen.dart';
@@ -39,7 +37,7 @@ class LoginCubit extends Cubit<LoginState> {
   String verificationCode = '';
   resendActivationCode(context) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+2' + textMobileControl.text,
+      phoneNumber: '+2${textMobileControl.text}',
       verificationCompleted: (PhoneAuthCredential credential) {},
       verificationFailed: (FirebaseAuthException e) {},
       codeSent: (String verificationId, int resendToken) {
@@ -58,7 +56,7 @@ class LoginCubit extends Cubit<LoginState> {
         textMobileControl.text != null) {
       loginBtnController.start();
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+2' + textMobileControl.text,
+        phoneNumber: '+2${textMobileControl.text}',
         verificationCompleted: (PhoneAuthCredential credential) {
           loginBtnController.success();
           loginBtnController.reset();
@@ -69,13 +67,13 @@ class LoginCubit extends Cubit<LoginState> {
           loginBtnController.error();
           loginBtnController.reset();
 
-          // if (e.message ==
-          //     'We have blocked all requests from this device due to unusual activity. Try again later.') {
-          //   emit(LoginErrorState(
-          //       ' لقد حظرنا جميع الطلبات الواردة من هذا الجهاز نظرًا\n ! لوجود نشاط غير معتاد حاول مرة أخرى في وقت لاحق'));
-          // } else {
-          //   emit(LoginErrorState(e.message ?? e.code));
-          // }
+          if (e.message ==
+              'We have blocked all requests from this device due to unusual activity. Try again later.') {
+            emit(LoginErrorState(
+                ' لقد حظرنا جميع الطلبات الواردة من هذا الجهاز نظرًا\n ! لوجود نشاط غير معتاد حاول مرة أخرى في وقت لاحق'));
+          } else {
+            emit(LoginErrorState(e.message ?? e.code));
+          }
         },
         codeSent: (String verificationId, int resendToken) {
           Global.mobile = textMobileControl.text;
@@ -101,7 +99,7 @@ class LoginCubit extends Cubit<LoginState> {
 
 
 
-  AllCasesModel data;
+
   StreamController<ErrorAnimationType> errorController =
       StreamController<ErrorAnimationType>();
 
