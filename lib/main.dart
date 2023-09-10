@@ -1,115 +1,116 @@
-import 'package:flutter/material.dart';
+// @dart=2.9
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
+import 'package:food_order_app/bloc/UpdateData/updateDataCubit.dart';
+import 'package:food_order_app/bloc/Upload_products/upload_products_cubit.dart';
+import 'package:food_order_app/bloc/home_bloc/HomeCubit.dart';
+import 'package:food_order_app/styles/colors.dart';
+import 'package:food_order_app/shared/network/Dio_Helper/Dio_Helper.dart';
+import 'package:food_order_app/shared/network/local/shared_helper.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import 'bloc/login_bloc/loginCubit.dart';
+import 'bloc/register_Bloc/registerBloc.dart';
+import 'home_layout/home_layout.dart';
+import 'modules/login/login_screen.dart';
+import 'shared/Global.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  FirebaseMessaging.instance;
+
+  await CachHelper.init();
+  DioHelper.init();
+
+  // fire base
+  FirebaseMessaging.onMessage.listen((event) {
+    // print('onMessage');
+  });
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    // print('A new onMessageOpenedApp event was published!');
+    // Navigator.pushNamed(context, '/message',
+    //     arguments: MessageArguments(message, true));
+  });
+  // FirebaseMessaging.onBackgroundMessage((message) {
+  //   // print('onBackgroundMessage!');
+  // });
+  Global.fireBaseToken = await FirebaseMessaging.instance.getToken() ?? '';
+
+  bool isUserLogin = await CachHelper.GetData(key: 'isUserLogin') ?? false;
+  bool isAdmin = await CachHelper.GetData(key: 'isAdmin') ?? false;
+  String mobile = await CachHelper.GetData(key: 'mobile') ?? '';
+
+  int projectId = await CachHelper.GetData(key: 'ProjectId') ?? 0;
+
+
+  if (isUserLogin && mobile.trim() != '') {
+    Global.isAdmin = isAdmin ?? false;
+    Global.mobile = mobile;
+    Global.projectId = projectId ?? 0;
+    Global.userName = await CachHelper.GetData(key: 'userName');
+    Global.departMent = await CachHelper.GetData(key: 'departmentId');
+    Global.imageUrl = await CachHelper.GetData(key: 'imageUrl');
+  }
+
+  runApp(MyApp(isUserLogin: isUserLogin));
+
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  String userName;
+  String mobile;
+  int departmentId;
+  bool isUserLogin;
+
+  MyApp({
+    Key key,
+    this.isUserLogin,
+  }) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => LoginCubit()),
+          BlocProvider(create: (context) => UploadProducts()),
+          BlocProvider(create: (context) => UpdateDataCubit()),
+          BlocProvider(create: (context) => RegisterCubit()..getAllProjects()..getUsers()),
+          BlocProvider(
+              create: (context) => HomeCubit()
+                ..getAllProjects()
+                ..getUsers()
+                ..getOrders()
+                ..getCategory()
+                ..getSubCategory()
+                ..getItems()
+                ..getAdditions()
+                ..getFavourite()
+                ..getUsersAccount()
+          ),
+        ],
+        child: MaterialApp(
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+          theme: Constants.lightTheme,
+          builder: EasyLoading.init(),
+          debugShowCheckedModeBanner: false,
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          // home:const ActivationCodeScreen(),
+          home:Scaffold(
+            body: DoubleBackToCloseApp(
+              child:isUserLogin ? const HomeLayout() : const LoginScreen() ,
+              snackBar:   const SnackBar(
+                content: Text('اضغط مره اخري للخروج',textAlign: TextAlign.center,),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+
+          )
+          ,
+        ));
   }
 }
