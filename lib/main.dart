@@ -26,6 +26,7 @@ Future<void> main() async {
   FirebaseMessaging.instance;
 
   await CachHelper.init();
+
   DioHelper.init();
 
   // fire base
