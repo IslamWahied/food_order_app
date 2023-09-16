@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.3 <3.0.0'
+  sdk: '>=3.1.1 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -41,11 +41,17 @@ dependencies:
   firebase_messaging: ^14.6.7
   firebase_core: ^2.15.1
 
+
+
+  equatable: ^2.0.5
+  get_it: ^7.6.4
+  dartz: ^0.10.1
+
   smooth_page_indicator:
-  carousel_pro:
+#  carousel_pro:
   shared_preferences:
-  dio:
-  flutter_icons:
+  dio: ^5.3.2
+  flutter_font_icons: ^2.2.5
   bloc: ^8.0.2
   image_picker: ^1.0.4
   flutter_bloc: ^8.0.1
@@ -105,6 +111,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/audios/
+    - assets/fonts/
 
 
 
@@ -112,13 +119,13 @@ flutter:
   fonts:
     - family: IBM
       fonts:
-        - asset: fonts/IBMPlexSansArabicBold.ttf
-        - asset: fonts/IBMPlexSansArabicExtraLight.ttf
-        - asset: fonts/IBMPlexSansArabicLight.ttf
-        - asset: fonts/IBMPlexSansArabicMedium.ttf
-        - asset: fonts/IBMPlexSansArabicRegular.ttf
-        - asset: fonts/IBMPlexSansArabicSemiBold.ttf
-        - asset: fonts/IBMPlexSansArabicThin.ttf
-    - family: IconBroken
-      fonts:
-        - asset: assets/fonts/icons.ttf
+        - asset: assets/fonts/IBMPlexSansArabicBold.ttf
+        - asset: assets/fonts/IBMPlexSansArabicExtraLight.ttf
+        - asset: assets/fonts/IBMPlexSansArabicLight.ttf
+        - asset: assets/fonts/IBMPlexSansArabicMedium.ttf
+        - asset: assets/fonts/IBMPlexSansArabicRegular.ttf
+        - asset: assets/fonts/IBMPlexSansArabicSemiBold.ttf
+        - asset: assets/fonts/IBMPlexSansArabicThin.ttf
+#    - family: IconBroken
+#      fonts:
+#        - asset: assets/fonts/icons.ttf

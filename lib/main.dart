@@ -1,24 +1,24 @@
-// @dart=2.9
+
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-import 'package:food_order_app/bloc/UpdateData/updateDataCubit.dart';
-import 'package:food_order_app/bloc/Upload_products/upload_products_cubit.dart';
-import 'package:food_order_app/bloc/home_bloc/HomeCubit.dart';
-import 'package:food_order_app/styles/colors.dart';
-import 'package:food_order_app/shared/network/Dio_Helper/Dio_Helper.dart';
-import 'package:food_order_app/shared/network/local/shared_helper.dart';
+import 'package:food_order_app/old/bloc/UpdateData/updateDataCubit.dart';
+import 'package:food_order_app/old/bloc/Upload_products/upload_products_cubit.dart';
+import 'package:food_order_app/old/bloc/home_bloc/HomeCubit.dart';
+import 'package:food_order_app/old/styles/colors.dart';
+import 'package:food_order_app/old/shared/network/Dio_Helper/Dio_Helper.dart';
+import 'package:food_order_app/old/shared/network/local/shared_helper.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import 'bloc/login_bloc/loginCubit.dart';
-import 'bloc/register_Bloc/registerBloc.dart';
-import 'home_layout/home_layout.dart';
-import 'modules/login/login_screen.dart';
-import 'shared/Global.dart';
+import 'old/bloc/login_bloc/loginCubit.dart';
+import 'old/bloc/register_Bloc/registerBloc.dart';
+import 'old/home_layout/home_layout.dart';
+import 'old/modules/login/login_screen.dart';
+import 'old/shared/Global.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'core/network/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,19 +59,22 @@ Future<void> main() async {
     Global.imageUrl = await CachHelper.GetData(key: 'imageUrl');
   }
 
-  runApp(MyApp(isUserLogin: isUserLogin));
+  runApp(MyApp(isUserLogin: isUserLogin,departmentId:Global.departMent,mobile:mobile,userName: Global.userName, key: const Key("81"),));
 
 }
 
 class MyApp extends StatelessWidget {
-  String userName;
-  String mobile;
-  int departmentId;
-  bool isUserLogin;
+  final String userName;
+  final  String mobile;
+  final  int departmentId;
+  final bool isUserLogin;
 
-  MyApp({
-    Key key,
-    this.isUserLogin,
+  const MyApp({
+    required Key key,
+    required this.isUserLogin,
+    required this.userName,
+    required this.mobile,
+    required this.departmentId
   }) : super(key: key);
 
   // This widget is the root of your application.
@@ -106,10 +109,10 @@ class MyApp extends StatelessWidget {
           // home:const ActivationCodeScreen(),
           home:Scaffold(
             body: DoubleBackToCloseApp(
-              child:isUserLogin ? const HomeLayout() : const LoginScreen() ,
               snackBar:   const SnackBar(
                 content: Text('اضغط مره اخري للخروج',textAlign: TextAlign.center,),
               ),
+              child:isUserLogin ? const HomeLayout(key:  Key("80"),) : const LoginScreen() ,
             ),
 
           )
