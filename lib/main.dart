@@ -12,6 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import 'core/network/auth/google_signIn_service.dart';
+import 'core/network/auth/user_auth.dart';
+import 'core/utils/app_theme.dart';
+import 'features/login/sign-in/login-by-phone-number.dart';
+import 'features/login/sign-in/sign-in.dart';
 import 'old/bloc/login_bloc/loginCubit.dart';
 import 'old/bloc/register_Bloc/registerBloc.dart';
 import 'old/home_layout/home_layout.dart';
@@ -28,6 +33,25 @@ Future<void> main() async {
   await CachHelper.init();
 
   DioHelper.init();
+
+
+    UserAuth  userAuth = UserAuth();
+//
+//
+   userAuth.registerWithEmailAndPassword("islamch.20102@gmail.com", "Glc@123456789");
+        userAuth.signInWithEmailAndPassword("islamch.20102@gmail.com", "Halach.20102");
+//   //   _userAuth.sendPasswordResetEmail("islamch.20102@gmail.com");
+//     var x =   _userAuth.getCurrentUserEmail();
+// print(x);
+//
+//   var xs =   _userAuth.getCurrentUserUID();
+//   print(xs);
+//   // _userAuth.sendPasswordResetEmail("islamch.20102@gmail.com");
+
+
+ // await userAuth.loginWithFacebook();
+
+
 
   // fire base
   FirebaseMessaging.onMessage.listen((event) {
@@ -49,6 +73,7 @@ Future<void> main() async {
 
   int projectId = await CachHelper.GetData(key: 'ProjectId') ?? 0;
 
+ bool isGoogleSignedIn =  GoogleSignInService().isGoogleSignedIn();
 
   if (isUserLogin && mobile.trim() != '') {
     Global.isAdmin = isAdmin ?? false;
@@ -59,7 +84,7 @@ Future<void> main() async {
     Global.imageUrl = await CachHelper.GetData(key: 'imageUrl');
   }
 
-  runApp(MyApp(isUserLogin: isUserLogin,departmentId:Global.departMent,mobile:mobile,userName: Global.userName, key: const Key("81"),));
+  runApp(MyApp(isUserLogin: isUserLogin,departmentId:Global.departMent,mobile:mobile,userName: Global.userName,isGoogleSignedIn: isGoogleSignedIn, key: const Key("81"),));
 
 }
 
@@ -68,12 +93,14 @@ class MyApp extends StatelessWidget {
   final  String mobile;
   final  int departmentId;
   final bool isUserLogin;
+  final bool isGoogleSignedIn;
 
   const MyApp({
     required Key key,
     required this.isUserLogin,
     required this.userName,
     required this.mobile,
+    required this.isGoogleSignedIn,
     required this.departmentId
   }) : super(key: key);
 
@@ -101,18 +128,22 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
 
-          theme: Constants.lightTheme,
+
           builder: EasyLoading.init(),
           debugShowCheckedModeBanner: false,
-
+          theme: AppTheme.lightTheme, // Set the light theme as the default
+          darkTheme: AppTheme.darkTheme,
+          //  themeMode: LoginCubit.get(context).isDarkMode ?ThemeMode.dark: ThemeMode.light,
+          themeMode:  ThemeMode.light,
 
           // home:const ActivationCodeScreen(),
-          home:Scaffold(
+          home:  Scaffold(
             body: DoubleBackToCloseApp(
               snackBar:   const SnackBar(
                 content: Text('اضغط مره اخري للخروج',textAlign: TextAlign.center,),
               ),
-              child:isUserLogin ? const HomeLayout(key:  Key("80"),) : const LoginScreen() ,
+              // child:isUserLogin ? const HomeLayout(key:  Key("80"),) : const LoginScreen() ,
+              child:  const SignInScreen()  ,
             ),
 
           )

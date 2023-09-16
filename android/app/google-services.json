@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "299576932149-qco90jag9jif06grrdho3ejlujvn65ga.apps.googleusercontent.com",
+          "client_id": "299576932149-c7b3bfi2tvuf4j3lutcjq994siusuo9q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.food_order_app",
+            "certificate_hash": "c30b37eea141deb08f347dbde8d6e602501eba96"
+          }
+        },
+        {
+          "client_id": "299576932149-a53ihkpn9jn03tfcgr3v80d5g01tg5a1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -28,8 +36,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "299576932149-qco90jag9jif06grrdho3ejlujvn65ga.apps.googleusercontent.com",
+              "client_id": "299576932149-a53ihkpn9jn03tfcgr3v80d5g01tg5a1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "299576932149-2tkb2700hpq9mioucgqgcnp3bmp2ti92.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.foodOrderApp"
+              }
             }
           ]
         }

@@ -36,17 +36,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
-  firebase_auth: ^4.9.0
-  firebase_storage: ^11.2.6
-  firebase_messaging: ^14.6.7
-  firebase_core: ^2.15.1
-
-
-
-  equatable: ^2.0.5
-  get_it: ^7.6.4
-  dartz: ^0.10.1
-
   smooth_page_indicator:
 #  carousel_pro:
   shared_preferences:
@@ -58,10 +47,7 @@ dependencies:
   backdrop: ^0.9.1
   flutter_svg: ^2.0.5
   rounded_loading_button: ^2.0.9
-  google_fonts: ^4.0.4
-  cloud_firestore: ^4.9.1
 
-  google_sign_in: ^6.1.5
 
   flutter_easyloading: ^3.0.3
   flutter_staggered_grid_view: ^0.7.0
@@ -82,6 +68,23 @@ dependencies:
   flutter_smart_dialog: ^4.9.4
   double_back_to_close_app: ^2.1.0
   intl: ^0.18.1
+
+
+  equatable: ^2.0.5
+  get_it: ^7.6.4
+  dartz: ^0.10.1
+
+  cloud_firestore: ^4.9.1
+  firebase_auth: ^4.9.0
+  firebase_storage: ^11.2.6
+  firebase_messaging: ^14.6.7
+  firebase_core: ^2.15.1
+
+  flutter_facebook_auth: ^6.0.2
+  google_sign_in: ^6.1.5
+
+
+
 
 
 dev_dependencies:

@@ -488,7 +488,7 @@ class SignUpScreen extends StatelessWidget {
                             width: 28*fem,
                             height: 28*fem,
                             child: Image.asset(
-                              'assets/interface/images/google-quR.png',
+                              'assets/images/google.png',
                               width: 28*fem,
                               height: 28*fem,
                             ),

@@ -2,10 +2,10 @@
 
 import 'package:food_order_app/old/bloc/login_bloc/loginCubit.dart';
 import 'package:food_order_app/old/bloc/login_bloc/loginState.dart';
-import 'package:food_order_app/old/styles/colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -53,13 +53,13 @@ maxLength: 11,
                         controller: cubit.textMobileControl,
                         keyboardType: TextInputType.phone,
                         obscureText: false,
-                        style: GoogleFonts.montserrat(
-                          textStyle: const TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff000912),
-                          ),
-                        ),
+                        // style: GoogleFonts.montserrat(
+                        //   textStyle: const TextStyle(
+                        //     fontSize: 17,
+                        //     fontWeight: FontWeight.w400,
+                        //     color: Color(0xff000912),
+                        //   ),
+                        // ),
 
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.symmetric(vertical: 18),
@@ -123,13 +123,13 @@ maxLength: 11,
                       padding: const EdgeInsets.only(top: 10, bottom: 18),
                       child: Text(
                         "Terms & Conditions",
-                        style: GoogleFonts.montserrat(
-                          textStyle: const TextStyle(
-                            color: Color(0xffA6B0BD),
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                          ),
-                        ),
+                        // style: GoogleFonts.montserrat(
+                        //   textStyle: const TextStyle(
+                        //     color: Color(0xffA6B0BD),
+                        //     fontWeight: FontWeight.w400,
+                        //     fontSize: 12,
+                        //   ),
+                        // ),
                       ),
                     )
                   ],
