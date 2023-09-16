@@ -3,7 +3,7 @@ import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:food_order_app/old/bloc/UpdateData/updateDataCubit.dart';
 import 'package:food_order_app/old/bloc/Upload_products/upload_products_cubit.dart';
 import 'package:food_order_app/old/bloc/home_bloc/HomeCubit.dart';
-import 'package:food_order_app/old/styles/colors.dart';
+
 import 'package:food_order_app/old/shared/network/Dio_Helper/Dio_Helper.dart';
 import 'package:food_order_app/old/shared/network/local/shared_helper.dart';
 
@@ -15,12 +15,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'core/network/auth/google_signIn_service.dart';
 import 'core/network/auth/user_auth.dart';
 import 'core/utils/app_theme.dart';
-import 'features/login/sign-in/login-by-phone-number.dart';
-import 'features/login/sign-in/sign-in.dart';
+
+import 'features/login/sign-in/presentation/screens/sign-in.dart';
 import 'old/bloc/login_bloc/loginCubit.dart';
 import 'old/bloc/register_Bloc/registerBloc.dart';
-import 'old/home_layout/home_layout.dart';
-import 'old/modules/login/login_screen.dart';
+
 import 'old/shared/Global.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'core/network/firebase_options.dart';
@@ -137,13 +136,13 @@ class MyApp extends StatelessWidget {
           themeMode:  ThemeMode.light,
 
           // home:const ActivationCodeScreen(),
-          home:  Scaffold(
+          home:  const Scaffold(
             body: DoubleBackToCloseApp(
-              snackBar:   const SnackBar(
+              snackBar:   SnackBar(
                 content: Text('اضغط مره اخري للخروج',textAlign: TextAlign.center,),
               ),
               // child:isUserLogin ? const HomeLayout(key:  Key("80"),) : const LoginScreen() ,
-              child:  const SignInScreen()  ,
+              child:  SignInScreen()  ,
             ),
 
           )
