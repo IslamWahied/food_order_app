@@ -1,19 +1,20 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_order_app/core/network/auth/google_signIn_service.dart';
 import 'package:food_order_app/core/network/auth/user_auth.dart';
 import 'package:food_order_app/features/login/sign-up/presentation/screens/sign-up.dart';
 
 import 'forgot-password.dart';
+import 'login-by-phone-number.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     TextEditingController userNameControl = TextEditingController();
-    TextEditingController passwordControl= TextEditingController();
+    TextEditingController passwordControl = TextEditingController();
     final formKey = GlobalKey<FormState>();
 
     double baseWidth = 375;
@@ -55,7 +56,7 @@ class SignInScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w600,
                                       height: 2.5 * ffem / fem,
                                       letterSpacing: -0.400000006 * fem,
-                                      color:const Color(0xff010f07))),
+                                      color: const Color(0xff010f07))),
                         ),
                       ),
                       Container(
@@ -77,16 +78,20 @@ class SignInScreen extends StatelessWidget {
                                     constraints: BoxConstraints(
                                       maxWidth: 276 * fem,
                                     ),
-                                    child: Text('Welcome to Tamang Food Services',
+                                    child: Text(
+                                        'Welcome to Tamang Food Services',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline1
                                             ?.copyWith(
                                                 fontSize: 33 * ffem,
                                                 fontWeight: FontWeight.w300,
-                                                height: 1.2727272727 * ffem / fem,
-                                                letterSpacing: 0.2199999988 * fem,
-                                                color:const Color(0xff010f07))),
+                                                height:
+                                                    1.2727272727 * ffem / fem,
+                                                letterSpacing:
+                                                    0.2199999988 * fem,
+                                                color:
+                                                    const Color(0xff010f07))),
                                   ),
                                   Container(
                                     constraints: BoxConstraints(
@@ -101,8 +106,10 @@ class SignInScreen extends StatelessWidget {
                                                 fontSize: 16 * ffem,
                                                 fontWeight: FontWeight.w400,
                                                 height: 1.5 * ffem / fem,
-                                                letterSpacing: -0.400000006 * fem,
-                                                color:const Color(0xff868686))),
+                                                letterSpacing:
+                                                    -0.400000006 * fem,
+                                                color:
+                                                    const Color(0xff868686))),
                                   ),
                                 ],
                               ),
@@ -118,11 +125,12 @@ class SignInScreen extends StatelessWidget {
                                     color: Color(0xffffffff),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Container(
-                                        padding: EdgeInsets.fromLTRB(
-                                            0 * fem, 20 * fem, 0 * fem, 0 * fem),
+                                        padding: EdgeInsets.fromLTRB(0 * fem,
+                                            20 * fem, 0 * fem, 0 * fem),
                                         width: double.infinity,
                                         child: Text('EMAIL ADDRESS',
                                             style: Theme.of(context)
@@ -131,18 +139,23 @@ class SignInScreen extends StatelessWidget {
                                                 ?.copyWith(
                                                     fontSize: 12 * ffem,
                                                     fontWeight: FontWeight.w300,
-                                                    height:
-                                                        1.6666666667 * ffem / fem,
+                                                    height: 1.6666666667 *
+                                                        ffem /
+                                                        fem,
                                                     letterSpacing:
                                                         0.8000000119 * fem,
-                                                    color:const Color(0xff868686))),
+                                                    color: const Color(
+                                                        0xff868686))),
                                       ),
                                       TextFormField(
                                         controller: userNameControl,
-                                        decoration:const InputDecoration(),
-                                        keyboardType: TextInputType.emailAddress,
-                                        validator: (value) => EmailValidator.validate(value!) ? null : "Please enter a valid email",
-
+                                        decoration: const InputDecoration(),
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        validator: (value) =>
+                                            EmailValidator.validate(value!)
+                                                ? null
+                                                : "Please enter a valid email",
                                       ),
                                     ],
                                   ),
@@ -161,20 +174,18 @@ class SignInScreen extends StatelessWidget {
                                                 ?.copyWith(
                                                     fontSize: 12 * ffem,
                                                     fontWeight: FontWeight.w300,
-                                                    height:
-                                                        1.6666666667 * ffem / fem,
+                                                    height: 1.6666666667 *
+                                                        ffem /
+                                                        fem,
                                                     letterSpacing:
                                                         0.8000000119 * fem,
-                                                    color:
-                                                        const Color(0xff868686))),
+                                                    color: const Color(
+                                                        0xff868686))),
                                       ],
                                     ),
                                     TextFormField(
-                                      controller:passwordControl ,
-
-                                      decoration:const InputDecoration(
-
-                                      ),
+                                      controller: passwordControl,
+                                      decoration: const InputDecoration(),
                                       obscureText: true,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
@@ -189,7 +200,9 @@ class SignInScreen extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ForgotPasswordScreen()),
                                     );
                                   },
                                   style: TextButton.styleFrom(
@@ -203,24 +216,42 @@ class SignInScreen extends StatelessWidget {
                                               fontSize: 12 * ffem,
                                               fontWeight: FontWeight.w300,
                                               height: 1.6666666667 * ffem / fem,
-                                              letterSpacing: -0.2399999946 * fem,
-                                              color:const Color(0xff010f07))),
+                                              letterSpacing:
+                                                  -0.2399999946 * fem,
+                                              color: const Color(0xff010f07))),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-
+                                  onPressed: () async {
+                                    userNameControl.text = "islamch.20102@gmail.com";
+                                    passwordControl.text = "Halach.20102";
                                     // Validate returns true if the form is valid, or false otherwise.
                                     if (formKey.currentState!.validate()) {
-                                      UserAuth  userAuth = UserAuth();
+                                      UserAuth userAuth = UserAuth();
 
-                                      // userAuth.registerWithEmailAndPassword("islamch.20102@gmail.com", "Glc@123456789");
-                                      userAuth.signInWithEmailAndPassword(userNameControl.text, passwordControl.text);
+
+
+                                     // bool? isLogin =  await   userAuth.signInWithEmailAndPassword(
+                                     //  email:     userNameControl.text,
+                                     // password:      passwordControl.text,
+                                     // context: context
+                                     //
+                                     // );
+                                     //
+                                     // if(isLogin!) {
+                                       Navigator.push(
+                                         context,
+                                         MaterialPageRoute(builder: (context) =>
+                                             LoginByPhoneNumberScreen(email: userNameControl.text,)),
+                                       );
+                                     // }
+
+
+
+
+
                                     }
 
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(builder: (context) => loginByPhoneNumber()),
-                                    // );
+
                                   },
                                   style: TextButton.styleFrom(
                                     padding: EdgeInsets.zero,
@@ -246,7 +277,8 @@ class SignInScreen extends StatelessWidget {
                                                       1.7142857143 * ffem / fem,
                                                   letterSpacing:
                                                       0.8000000119 * fem,
-                                                  color: const Color(0xffffffff))),
+                                                  color:
+                                                      const Color(0xffffffff))),
                                     ),
                                   ),
                                 ),
@@ -270,14 +302,17 @@ class SignInScreen extends StatelessWidget {
                                               fontSize: 12 * ffem,
                                               fontWeight: FontWeight.w300,
                                               height: 1.6666666667 * ffem / fem,
-                                              letterSpacing: -0.2399999946 * fem,
-                                              color:const Color(0xff010f07))),
+                                              letterSpacing:
+                                                  -0.2399999946 * fem,
+                                              color: const Color(0xff010f07))),
                                 ),
                                 InkWell(
                                   onTap: () {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SignUpScreen()),
                                     );
                                   },
                                   child: Text('Create new account.',
@@ -288,7 +323,8 @@ class SignInScreen extends StatelessWidget {
                                               fontSize: 12 * ffem,
                                               fontWeight: FontWeight.w300,
                                               height: 1.6666666667 * ffem / fem,
-                                              letterSpacing: -0.2399999946 * fem,
+                                              letterSpacing:
+                                                  -0.2399999946 * fem,
                                               color: const Color(0xffeea634))),
                                 ),
                               ],
@@ -312,31 +348,27 @@ class SignInScreen extends StatelessWidget {
                                                 fontSize: 16 * ffem,
                                                 fontWeight: FontWeight.w400,
                                                 height: 1.5 * ffem / fem,
-                                                letterSpacing: -0.400000006 * fem,
-                                                color: const Color(0xff010f07))),
+                                                letterSpacing:
+                                                    -0.400000006 * fem,
+                                                color:
+                                                    const Color(0xff010f07))),
                                   ),
                                 ),
                                 InkWell(
                                   onTap: () async {
+                                    GoogleSignInService googleSignInService =
+                                        GoogleSignInService();
+                                    bool isGoogleSignedIn =
+                                        googleSignInService.isGoogleSignedIn();
 
+                                    await googleSignInService.signOutGoogle();
 
-
-                                      GoogleSignInService googleSignInService = GoogleSignInService();
-                                 bool isGoogleSignedIn =    googleSignInService.isGoogleSignedIn();
-
-
+                                    if (!isGoogleSignedIn) {
+                                      await googleSignInService
+                                          .signInWithGoogle();
+                                    } else {
                                       await googleSignInService.signOutGoogle();
-
-                                 if(!isGoogleSignedIn){
-                                  await googleSignInService.signInWithGoogle();
-
-                                 }else{
-
-                                      await googleSignInService.signOutGoogle();
-
-                                 }
-
-
+                                    }
                                   },
                                   child: Container(
                                     padding: EdgeInsets.fromLTRB(
@@ -344,10 +376,12 @@ class SignInScreen extends StatelessWidget {
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       color: const Color(0xff4285f4),
-                                      borderRadius: BorderRadius.circular(8 * fem),
+                                      borderRadius:
+                                          BorderRadius.circular(8 * fem),
                                     ),
                                     child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Container(
                                           margin: EdgeInsets.fromLTRB(0 * fem,
@@ -368,12 +402,15 @@ class SignInScreen extends StatelessWidget {
                                                   .headline1
                                                   ?.copyWith(
                                                       fontSize: 12 * ffem,
-                                                      fontWeight: FontWeight.w600,
-                                                      height:
-                                                          1.6666666667 * ffem / fem,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      height: 1.6666666667 *
+                                                          ffem /
+                                                          fem,
                                                       letterSpacing:
                                                           0.8000000119 * fem,
-                                                      color:const Color(0xffffffff))),
+                                                      color: const Color(
+                                                          0xffffffff))),
                                         ),
                                       ],
                                     ),

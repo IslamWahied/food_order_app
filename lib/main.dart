@@ -65,7 +65,8 @@ Future<void> main() async {
     Global.departMent = await CachHelper.GetData(key: 'departmentId');
     Global.imageUrl = await CachHelper.GetData(key: 'imageUrl');
   }
-
+  //islamch.20102@gmail.com
+  //Halach.20102
   runApp(MyApp(isUserLogin: isUserLogin,departmentId:Global.departMent,mobile:mobile,userName: Global.userName,isGoogleSignedIn: isGoogleSignedIn, key: const Key("81"),));
 
 }
@@ -119,7 +120,7 @@ class MyApp extends StatelessWidget {
           themeMode:  ThemeMode.light,
 
           // home:const ActivationCodeScreen(),
-          home:    Scaffold(
+          home:    const Scaffold(
             body: DoubleBackToCloseApp(
               snackBar:   SnackBar(
                 content: Text('اضغط مره اخري للخروج',textAlign: TextAlign.center,),

@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 
 class UserAuth {
@@ -17,14 +19,31 @@ class UserAuth {
   }
 
   // Sign in with email and password
-  Future<String?> signInWithEmailAndPassword(String email, String password) async {
+  Future<bool?> signInWithEmailAndPassword(
+      {required String email, required String password,required BuildContext context}) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      print(" Successful login");
-      return null; // Successful login
+      UserCredential userCredential =   await _auth.signInWithEmailAndPassword(email: email, password: password);
+      User? user = userCredential.user;
+      if (user != null) {
+        // User is signed in, you can perform actions for authenticated users here.
+        print(" Successful login");
+        print('User is signed in: ${user.email}');
+        return true;
+      } else {
+        // User is not signed in.
+        print('User is not signed in.');
+        return false;
+      }
+
     } on FirebaseAuthException catch (e) {
-      print("login error");
-      return e.message; // Handle login error
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Sign-In Error: ${e.code}}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false; // Handle login error
     }
   }
 
