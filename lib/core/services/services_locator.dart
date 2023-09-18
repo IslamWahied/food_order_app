@@ -25,7 +25,5 @@ class ServicesLocator {
     //
     // // Bloc
     // sl.registerFactory(() => ChatCubit(sl(),sl()));
-
-
   }
 }
