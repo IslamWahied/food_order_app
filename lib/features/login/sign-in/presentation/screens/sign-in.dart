@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:food_order_app/core/network/auth/google_signIn_service.dart';
+import 'package:food_order_app/core/network/auth/user_auth.dart';
+
+import 'forgot-password.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController userNameControl = TextEditingController();
+    TextEditingController passwordControl= TextEditingController();
     double baseWidth = 375;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -126,6 +132,7 @@ class SignInScreen extends StatelessWidget {
                                                   color:const Color(0xff868686))),
                                     ),
                                     TextFormField(
+                                      controller: userNameControl,
                                       decoration:const InputDecoration(),
                                     ),
                                   ],
@@ -154,16 +161,17 @@ class SignInScreen extends StatelessWidget {
                                     ],
                                   ),
                                   TextFormField(
+                                    controller:passwordControl ,
                                     decoration:const InputDecoration(),
                                   ),
                                 ],
                               ),
                               TextButton(
                                 onPressed: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(builder: (context) => forgotPassword()),
-                                  // );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
+                                  );
                                 },
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
@@ -181,6 +189,11 @@ class SignInScreen extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
+
+                                  UserAuth  userAuth = UserAuth();
+
+                                  // userAuth.registerWithEmailAndPassword("islamch.20102@gmail.com", "Glc@123456789");
+                                  userAuth.signInWithEmailAndPassword(userNameControl.text, passwordControl.text);
                                   // Navigator.push(
                                   //   context,
                                   //   MaterialPageRoute(builder: (context) => loginByPhoneNumber()),

@@ -3,6 +3,7 @@ import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:food_order_app/old/bloc/UpdateData/updateDataCubit.dart';
 import 'package:food_order_app/old/bloc/Upload_products/upload_products_cubit.dart';
 import 'package:food_order_app/old/bloc/home_bloc/HomeCubit.dart';
+import 'package:food_order_app/old/home_layout/home_layout.dart';
 
 import 'package:food_order_app/old/shared/network/Dio_Helper/Dio_Helper.dart';
 import 'package:food_order_app/old/shared/network/local/shared_helper.dart';
@@ -13,10 +14,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'core/network/auth/google_signIn_service.dart';
-import 'core/network/auth/user_auth.dart';
+
 import 'core/utils/app_theme.dart';
 
 import 'features/login/sign-in/presentation/screens/sign-in.dart';
+
 import 'old/bloc/login_bloc/loginCubit.dart';
 import 'old/bloc/register_Bloc/registerBloc.dart';
 
@@ -32,25 +34,6 @@ Future<void> main() async {
   await CachHelper.init();
 
   DioHelper.init();
-
-
-    UserAuth  userAuth = UserAuth();
-//
-//
-   userAuth.registerWithEmailAndPassword("islamch.20102@gmail.com", "Glc@123456789");
-        userAuth.signInWithEmailAndPassword("islamch.20102@gmail.com", "Halach.20102");
-//   //   _userAuth.sendPasswordResetEmail("islamch.20102@gmail.com");
-//     var x =   _userAuth.getCurrentUserEmail();
-// print(x);
-//
-//   var xs =   _userAuth.getCurrentUserUID();
-//   print(xs);
-//   // _userAuth.sendPasswordResetEmail("islamch.20102@gmail.com");
-
-
- // await userAuth.loginWithFacebook();
-
-
 
   // fire base
   FirebaseMessaging.onMessage.listen((event) {
@@ -72,7 +55,7 @@ Future<void> main() async {
 
   int projectId = await CachHelper.GetData(key: 'ProjectId') ?? 0;
 
- bool isGoogleSignedIn =  GoogleSignInService().isGoogleSignedIn();
+  bool isGoogleSignedIn =  GoogleSignInService().isGoogleSignedIn();
 
   if (isUserLogin && mobile.trim() != '') {
     Global.isAdmin = isAdmin ?? false;
@@ -136,12 +119,12 @@ class MyApp extends StatelessWidget {
           themeMode:  ThemeMode.light,
 
           // home:const ActivationCodeScreen(),
-          home:  const Scaffold(
+          home:    Scaffold(
             body: DoubleBackToCloseApp(
               snackBar:   SnackBar(
                 content: Text('اضغط مره اخري للخروج',textAlign: TextAlign.center,),
               ),
-              // child:isUserLogin ? const HomeLayout(key:  Key("80"),) : const LoginScreen() ,
+               // child:isUserLogin ? const HomeLayout(key:  Key("80"),) : const SignInScreen() ,
               child:  SignInScreen()  ,
             ),
 

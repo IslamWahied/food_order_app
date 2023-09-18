@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.food_order_app">
+<!--    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>-->
    <application
         android:label="food_order_app"
         android:name="${applicationName}"

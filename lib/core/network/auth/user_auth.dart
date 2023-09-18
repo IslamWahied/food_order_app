@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
 
 class UserAuth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -61,18 +61,18 @@ class UserAuth {
   }
 
 
-  Future<void> loginWithFacebook() async {
-    try {
-      final LoginResult loginResult = await FacebookAuth.instance.login();
-
-      if (loginResult.status == LoginStatus.success) {
-        final AccessToken? accessToken = loginResult.accessToken;
-        print('Facebook login successful. User ID: ${accessToken?.userId}');
-      } else {
-        print('Facebook login failed.');
-      }
-    }  catch (e) {
-      print('Facebook authentication error: ${e}');
-    }
-  }
+  // Future<void> loginWithFacebook() async {
+  //   try {
+  //     final LoginResult loginResult = await FacebookAuth.instance.login();
+  //
+  //     if (loginResult.status == LoginStatus.success) {
+  //       final AccessToken? accessToken = loginResult.accessToken;
+  //       print('Facebook login successful. User ID: ${accessToken?.userId}');
+  //     } else {
+  //       print('Facebook login failed.');
+  //     }
+  //   }  catch (e) {
+  //     print('Facebook authentication error: ${e}');
+  //   }
+  // }
 }
