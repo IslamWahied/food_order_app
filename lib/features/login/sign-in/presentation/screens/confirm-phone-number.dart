@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-class confirmPhoneNumberScreen extends StatelessWidget {
+class confirmPhoneNumberScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;

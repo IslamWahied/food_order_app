@@ -7,15 +7,17 @@ class UserAuth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Register a new user with email and password
-  Future<String?> registerWithEmailAndPassword(String email, String password) async {
+  Future<User?> registerWithEmailAndPassword(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential =   await _auth.createUserWithEmailAndPassword(email: email, password: password);
       print("Successful registration");
-      return null; // Successful registration
+      return userCredential.user; // Successful registration
     } on FirebaseAuthException catch (e) {
       print(" registration error");
-      return e.message; // Handle registration error
+      return null;
+      // return e.message; // Handle registration error
     }
+
   }
 
   // Sign in with email and password

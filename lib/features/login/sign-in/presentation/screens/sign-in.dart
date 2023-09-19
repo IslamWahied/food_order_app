@@ -202,7 +202,7 @@ class SignInScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const ForgotPasswordScreen()),
+                                                ForgotPasswordScreen()),
                                     );
                                   },
                                   style: TextButton.styleFrom(
@@ -241,7 +241,7 @@ class SignInScreen extends StatelessWidget {
                                        Navigator.push(
                                          context,
                                          MaterialPageRoute(builder: (context) =>
-                                             LoginByPhoneNumberScreen(email: userNameControl.text,)),
+                                             SignUpScreen(email:'',userImageUrl:'',userFullName: '' ,)),
                                        );
                                      // }
 
@@ -312,7 +312,7 @@ class SignInScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const SignUpScreen()),
+                                              SignUpScreen(email:'',userImageUrl:'',userFullName:'',)),
                                     );
                                   },
                                   child: Text('Create new account.',
@@ -364,11 +364,18 @@ class SignInScreen extends StatelessWidget {
                                     await googleSignInService.signOutGoogle();
 
                                     if (!isGoogleSignedIn) {
-                                      await googleSignInService
-                                          .signInWithGoogle();
+                                    var x =   await googleSignInService.signInWithGoogle();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SignUpScreen(email:x!.email,userImageUrl:x.photoUrl!,userFullName:  x.displayName! ,)),
+                                      );
                                     } else {
                                       await googleSignInService.signOutGoogle();
                                     }
+
+
                                   },
                                   child: Container(
                                     padding: EdgeInsets.fromLTRB(
