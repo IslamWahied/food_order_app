@@ -139,7 +139,7 @@ class ShopScreen extends StatelessWidget {
                                   ),
                                 ),
 
-                                const Expanded(
+                                  Expanded(
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 20),
                                     child: Row(

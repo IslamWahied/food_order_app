@@ -1,33 +1,25 @@
-
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-import 'package:food_order_app/old/bloc/UpdateData/updateDataCubit.dart';
-import 'package:food_order_app/old/bloc/Upload_products/upload_products_cubit.dart';
-import 'package:food_order_app/old/bloc/home_bloc/HomeCubit.dart';
-import 'package:food_order_app/old/home_layout/home_layout.dart';
-
 import 'package:food_order_app/old/shared/network/Dio_Helper/Dio_Helper.dart';
 import 'package:food_order_app/old/shared/network/local/shared_helper.dart';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
 import 'core/network/auth/google_signIn_service.dart';
-
 import 'core/utils/app_theme.dart';
-
-import 'features/login/sign-in/presentation/screens/sign-in.dart';
-
+import 'features/login/splash/presentation/screens/splashScreen.dart';
 import 'old/bloc/login_bloc/loginCubit.dart';
-import 'old/bloc/register_Bloc/registerBloc.dart';
-
 import 'old/shared/Global.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'core/network/firebase_options.dart';
 
+
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+
+
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.instance;
 
@@ -50,6 +42,7 @@ Future<void> main() async {
   Global.fireBaseToken = await FirebaseMessaging.instance.getToken() ?? '';
 
   bool isUserLogin = await CachHelper.GetData(key: 'isUserLogin') ?? false;
+  bool isFirstLogin = await CachHelper.GetData(key: 'isFirstLogin') ?? false;
   bool isAdmin = await CachHelper.GetData(key: 'isAdmin') ?? false;
   String mobile = await CachHelper.GetData(key: 'mobile') ?? '';
 
@@ -65,9 +58,14 @@ Future<void> main() async {
     Global.departMent = await CachHelper.GetData(key: 'departmentId');
     Global.imageUrl = await CachHelper.GetData(key: 'imageUrl');
   }
-  //islamch.20102@gmail.com
-  //Halach.20102
-  runApp(MyApp(isUserLogin: isUserLogin,departmentId:Global.departMent,mobile:mobile,userName: Global.userName,isGoogleSignedIn: isGoogleSignedIn, key: const Key("81"),));
+
+  runApp(MyApp(
+    isUserLogin: isUserLogin,
+    isFirstLogin: isFirstLogin,
+    departmentId:Global.departMent,
+    mobile:mobile,
+    userName: Global.userName,
+    isGoogleSignedIn: isGoogleSignedIn, key: const Key("81"),));
 
 }
 
@@ -76,11 +74,13 @@ class MyApp extends StatelessWidget {
   final  String mobile;
   final  int departmentId;
   final bool isUserLogin;
+  final bool isFirstLogin;
   final bool isGoogleSignedIn;
 
   const MyApp({
     required Key key,
     required this.isUserLogin,
+    required this.isFirstLogin,
     required this.userName,
     required this.mobile,
     required this.isGoogleSignedIn,
@@ -90,24 +90,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => LoginCubit()),
-          BlocProvider(create: (context) => UploadProducts()),
-          BlocProvider(create: (context) => UpdateDataCubit()),
-          BlocProvider(create: (context) => RegisterCubit()..getAllProjects()..getUsers()),
-          BlocProvider(
-              create: (context) => HomeCubit()
-                ..getAllProjects()
-                ..getUsers()
-                ..getOrders()
-                ..getCategory()
-                ..getSubCategory()
-                ..getItems()
-                ..getAdditions()
-                ..getFavourite()
-                ..getUsersAccount()
-          ),
+            BlocProvider(create: (context) => LoginCubit()),
+          // BlocProvider(create: (context) => UploadProducts()),
+          // BlocProvider(create: (context) => UpdateDataCubit()),
+          // BlocProvider(create: (context) => RegisterCubit()..getAllProjects()..getUsers()),
+          // BlocProvider(
+          //     create: (context) => HomeCubit()
+          //       ..getAllProjects()
+          //       ..getUsers()
+          //       ..getOrders()
+          //       ..getCategory()
+          //       ..getSubCategory()
+          //       ..getItems()
+          //       ..getAdditions()
+          //       ..getFavourite()
+          //       ..getUsersAccount()
+          // ),
         ],
         child: MaterialApp(
 
@@ -120,13 +121,13 @@ class MyApp extends StatelessWidget {
           themeMode:  ThemeMode.light,
 
           // home:const ActivationCodeScreen(),
-          home:    const Scaffold(
+          home:      Scaffold(
             body: DoubleBackToCloseApp(
-              snackBar:   SnackBar(
+              snackBar:   const SnackBar(
                 content: Text('اضغط مره اخري للخروج',textAlign: TextAlign.center,),
               ),
                // child:isUserLogin ? const HomeLayout(key:  Key("80"),) : const SignInScreen() ,
-              child:  SignInScreen()  ,
+              child:  MyCustomSplashScreen(isUserLogin:isUserLogin,isFirstLogin: isFirstLogin, )  ,
             ),
 
           )

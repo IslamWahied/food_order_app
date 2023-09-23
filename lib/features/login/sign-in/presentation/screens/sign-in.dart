@@ -396,7 +396,7 @@ class SignInScreen extends StatelessWidget {
                                           width: 28 * fem,
                                           height: 28 * fem,
                                           child: Image.asset(
-                                            'assets/images/google.png',
+                                            'assets/image/google.png',
                                             width: 28 * fem,
                                             height: 28 * fem,
                                           ),

@@ -66,7 +66,7 @@ class DetailsScreen extends StatelessWidget {
 
                     SizedBox(height: kDefaultPadding),
 
-                    const Row(
+                      Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(

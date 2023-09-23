@@ -299,7 +299,7 @@ class RegisterScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(15),
                                     border: Border.all(
                                         width: 1, color: Colors.grey[400]!)),
-                                child: const Row(
+                                child:   Row(
                                   children: [
                                     Text(
                                       'التالي',
