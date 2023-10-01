@@ -1,3 +1,4 @@
-// class AppConstance {
-//   static const baseUrl = "https://api.themoviedb.org/3";
-// }
+class AppConstance {
+  static const projectName = "Tamang Food";
+
+}

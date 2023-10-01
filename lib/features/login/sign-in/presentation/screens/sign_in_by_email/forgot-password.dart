@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:food_order_app/core/network/auth/user_auth.dart';
-import 'package:food_order_app/features/login/sign-in/presentation/screens/reset-email.dart';
+import 'package:food_order_app/features/login/sign-in/presentation/screens/sign_in_by_email/reset-email.dart';
 
 
 class ForgotPasswordScreen extends StatelessWidget {

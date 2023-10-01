@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_order_app/features/login/sign-in/presentation/screens/sign-in.dart';
+import 'package:food_order_app/features/login/sign-in/presentation/screens/sign_in_by_email/sign-in.dart';
+import 'package:food_order_app/core/network/auth/google_signIn_service.dart';
 
 class SignUpScreen extends StatelessWidget {
   final String email;
@@ -366,42 +367,64 @@ class SignUpScreen extends StatelessWidget {
                                               color: const Color(0xff010f07))),
                                 ),
                               ),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(
-                                    16 * fem, 8 * fem, 60.5 * fem, 8 * fem),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff4285f4),
-                                  borderRadius: BorderRadius.circular(8 * fem),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 40.5 * fem, 0 * fem),
-                                      width: 28 * fem,
-                                      height: 28 * fem,
-                                      child: Image.asset(
-                                        'assets/image/google.png',
+                              InkWell(
+                                onTap: () async {
+                                  GoogleSignInService googleSignInService =
+                                  GoogleSignInService();
+                                  bool isGoogleSignedIn =
+                                  googleSignInService.isGoogleSignedIn();
+
+                                  await googleSignInService.signOutGoogle();
+
+                                  if (!isGoogleSignedIn) {
+                                    var x =   await googleSignInService.signInWithGoogle();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SignUpScreen(email:x!.email,userImageUrl:x.photoUrl!,userFullName:  x.displayName! ,)),
+                                    );
+                                  } else {
+                                    await googleSignInService.signOutGoogle();
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.fromLTRB(
+                                      16 * fem, 8 * fem, 60.5 * fem, 8 * fem),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xff4285f4),
+                                    borderRadius: BorderRadius.circular(8 * fem),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.fromLTRB(
+                                            0 * fem, 0 * fem, 40.5 * fem, 0 * fem),
                                         width: 28 * fem,
                                         height: 28 * fem,
+                                        child: Image.asset(
+                                          'assets/image/google.png',
+                                          width: 28 * fem,
+                                          height: 28 * fem,
+                                        ),
                                       ),
-                                    ),
-                                    Center(
-                                      child: Text('CONNECT WITH GOOGLE',
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline1
-                                              ?.copyWith(
-                                                  fontSize: 12 * ffem,
-                                                  fontWeight: FontWeight.w600,
-                                                  height: 1.6666666667 * ffem / fem,
-                                                  letterSpacing: 0.8000000119 * fem,
-                                                  color: const Color(0xffffffff))),
-                                    ),
-                                  ],
+                                      Center(
+                                        child: Text('CONNECT WITH GOOGLE',
+                                            textAlign: TextAlign.center,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline1
+                                                ?.copyWith(
+                                                    fontSize: 12 * ffem,
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 1.6666666667 * ffem / fem,
+                                                    letterSpacing: 0.8000000119 * fem,
+                                                    color: const Color(0xffffffff))),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],

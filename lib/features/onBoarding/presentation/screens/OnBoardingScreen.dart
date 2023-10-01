@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_order_app/features/login/sign-in/presentation/screens/sign-in.dart';
+import 'package:food_order_app/features/login/sign-in/presentation/screens/sign_in_by_email/sign-in.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
