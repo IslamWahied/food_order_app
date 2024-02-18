@@ -65,7 +65,8 @@ Future<void> main() async {
     departmentId:Global.departMent,
     mobile:mobile,
     userName: Global.userName,
-    isGoogleSignedIn: isGoogleSignedIn, key: const Key("81"),));
+    isGoogleSignedIn: isGoogleSignedIn,
+    key: const Key("81"),));
 
 }
 

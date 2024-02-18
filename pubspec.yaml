@@ -82,7 +82,7 @@ dependencies:
   firebase_core: ^2.15.1
 
 
-  google_sign_in: ^6.1.5
+  google_sign_in: ^6.2.1
   local_auth: ^2.1.7
   email_validator: ^2.1.17
   intl_phone_field: ^3.2.0
@@ -118,8 +118,8 @@ flutter:
   assets:
     - assets/
     - assets/image/
-    - assets/icons/
-    - assets/audios/
+#    - assets/icons/
+#    - assets/audios/
     - assets/fonts/
 
 

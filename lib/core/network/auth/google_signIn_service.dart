@@ -1,12 +1,14 @@
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInService {
+
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
   // Function to initiate Google Sign-In
   Future<GoogleSignInAccount?> signInWithGoogle() async {
     try {
       final account = await _googleSignIn.signIn();
+
       return account;
     } catch (error) {
       print('Google Sign-In Error: $error');

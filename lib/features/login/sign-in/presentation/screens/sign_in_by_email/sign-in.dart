@@ -430,8 +430,9 @@ class CreateAccountWidget extends StatelessWidget {
                   await googleSignInService.signOutGoogle();
 
                   if (!isGoogleSignedIn) {
-                    var x = await googleSignInService
-                        .signInWithGoogle();
+                    var x = await googleSignInService.signInWithGoogle();
+                    print("55555555555555555555555555555555555");
+                    print(x);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
